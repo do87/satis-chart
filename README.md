@@ -3,7 +3,8 @@
 ## Introduction
 
 This chart is used for setting up a [Satis](https://github.com/composer/satis) server on kubernetes
-[Satis](https://github.com/composer/satis) is a static Composer repository generator, so this chart can be used to mirror packagist.org amongst other things
+
+[Satis](https://github.com/composer/satis) is a static Composer repository generator, so this chart can be used, for example, to mirror packagist.org amongst or to reference private repositories
 
 This chart is using [composer/satis](https://hub.docker.com/r/composer/satis/) (which is based on `php:7-alpine`)
 And `nginx:1.13.12-alpine` to serve the static files
