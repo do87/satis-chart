@@ -1,0 +1,65 @@
+
+replicaCount: 1
+
+nginx:
+  image:
+    repository: nginx
+    tag: 1.13.12-alpine
+    pullPolicy: IfNotPresent
+  resources: {}
+  config: |
+    server {
+      listen 80 default_server;
+      listen [::]:80 default_server;
+
+      root /composer/build/output;
+
+      index index.html;
+
+      server_name _;
+
+      location / {
+        try_files $uri $uri/ =404;
+      }
+    }
+
+satis:
+  image:
+    repository: composer/satis
+    tag: latest
+    pullPolicy: IfNotPresent
+  resources: {}
+  config: |
+    {
+        "name": "Composer Mirror",
+        "homepage": "https://satis.domain.com",
+
+        "repositories": [
+            { "type": "composer", "url": "https://packagist.org" }
+        ],
+
+        "require": {
+            "phpunit/phpunit": "*"
+        },
+
+        "require-dependencies": true
+    }
+
+ingress:
+  enabled: false
+
+  hosts:
+    - satis.domain.com
+
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    # ingress.kubernetes.io/force-ssl-redirect: 'true'
+    # ingress.kubernetes.io/auth-type: basic
+    # ingress.kubernetes.io/auth-realm: "Authentication Required - Satis"
+    # ingress.kubernetes.io/auth-secret: satis-basic-auth
+
+persistent:
+  enabled: false
+  storageClass: ""
+  accessMode: ReadWriteOnce
+  size: 5Gi
