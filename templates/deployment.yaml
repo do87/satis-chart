@@ -53,7 +53,12 @@ spec:
           - name: build-output
             mountPath: /composer
         command: [ "/bin/sh", "-c", "--" ]
-        args: [ "while true; do mkdir -p /composer/build/output; php /satis/bin/satis --ansi -vvv build /build/satis.json /composer/build/output; sleep 60; done;" ]
+        args: [ "
+          while true; do \
+            mkdir -p /composer/build/output/dist;  \
+            php /satis/bin/satis --ansi -vvv build /build/satis.json /composer/build/output;  \
+            sleep 60;  \
+          done;" ]
         resources:
 {{ toYaml .Values.satis.resources | indent 10 }}
 

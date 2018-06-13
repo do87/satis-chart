@@ -38,6 +38,12 @@ satis:
             { "type": "composer", "url": "https://packagist.org" }
         ],
 
+        "archive": {
+          "directory": "dist",
+          "format": "tar",
+          "skip-dev": true
+        },
+
         "require": {
             "phpunit/phpunit": "*"
         },
