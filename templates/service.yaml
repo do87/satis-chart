@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ template "fullname" . }}
+  name: {{ template "satis.fullname" . }}
   labels:
-    app: {{ template "name" . }}
+    app: {{ template "satis.name" . }}
     chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
@@ -15,5 +15,5 @@ spec:
     port: 80
     targetPort: 80
   selector:
-    app: {{ template "name" . }}
+    app: {{ template "satis.name" . }}
     release: {{ .Release.Name }}
